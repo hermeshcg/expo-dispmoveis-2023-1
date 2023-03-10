@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Light from './components/Light';
+import FacebookLogin from './components/FacebookLogin';
 
 export default function App() {
-  return <Light />;
+  return <FacebookLogin />;
 }
