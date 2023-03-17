@@ -1,6 +1,6 @@
 import * as React from 'react';
-import FacebookLogin from './components/FacebookLogin';
+import SignUp from './components/SignUp';
 
 export default function App() {
-  return <FacebookLogin />;
+  return <SignUp />;
 }
