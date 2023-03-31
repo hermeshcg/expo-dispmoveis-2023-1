@@ -1,6 +1,6 @@
 import * as React from 'react';
-import SignUp from './components/SignUp';
+import Instagram from './components/Instagram';
 
 export default function App() {
-  return <SignUp />;
+  return <Instagram />;
 }

@@ -1,10 +1,15 @@
-import { View, Text, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import React from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { TextInput } from 'react-native-paper';
-
+import { validationSchema } from './validation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const ErrorMessage = ({ errorValue }) => {
@@ -82,6 +87,33 @@ export default function SignUp() {
                 />
                 <ErrorMessage errorValue={touched.email && errors.email} />
               </View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}> Password</Text>
+                <TextInput
+                  style={styles.input}
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                />
+                <ErrorMessage
+                  errorValue={touched.password && errors.password}
+                />
+              </View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}> Confirm Password</Text>
+                <TextInput
+                  style={styles.input}
+                  value={values.confirmPassword}
+                  onChangeText={handleChange('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                />
+                <ErrorMessage
+                  errorValue={touched.confirmPassword && errors.confirmPassword}
+                />
+              </View>
+              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}> SUBMIT </Text>
+              </TouchableOpacity>
             </KeyboardAwareScrollView>
           )}
         </Formik>
@@ -90,6 +122,18 @@ export default function SignUp() {
   );
 }
 const styles = StyleSheet.create({
+  button: {
+    marginTop: 20,
+    backgroundColor: '#2980b9',
+    padding: 15,
+    borderRadius: 15,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
   errorContainer: {
     marginVertical: 5,
   },
@@ -134,18 +178,4 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f9f9f9',
   },
-});
-
-const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required('First name is required'),
-  email: Yup.string()
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: Yup.string()
-    .required()
-    .min(6, 'Password must have at least 6 characters'),
-  confirmPassword: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'Password must have at least 6 characters'
-  ),
 });
