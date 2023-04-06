@@ -33,14 +33,16 @@ export default function Instagram() {
       {/* Posts */}
       <ScrollView style={styles.posts}>
         {data.map((post) => {
-          <View key={post.id}>
-            <View style={styles.postHeader}>
-              <Image source={{ uri: post.avatar }} />
-              <Text>{post.name}</Text>
+          return (
+            <View key={post.id}>
+              <View style={styles.postHeader}>
+                <Image source={{ uri: post.avatar }} />
+                <Text>{post.name}</Text>
+              </View>
+              <Image source={{ uri: post.image }} style={styles.imagePost} />
+              <View></View>
             </View>
-            <Image source={{ uri: post.image }} style={styles.imagePost} />
-            <View></View>
-          </View>;
+          );
         })}
       </ScrollView>
       <View styles={styles.footer}>
