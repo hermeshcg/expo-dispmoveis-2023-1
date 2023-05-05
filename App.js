@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Instagram from './components/Instagram';
+import JoKenPo from './components/JoKenPo';
 
 export default function App() {
-  return <Instagram />;
+  return <JoKenPo />;
 }
