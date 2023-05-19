@@ -1,6 +1,6 @@
 import * as React from 'react';
-import JoKenPo from './components/JoKenPo';
+import CalculadoraIMC from './components/CalculadoraIMC';
 
 export default function App() {
-  return <JoKenPo />;
+  return <CalculadoraIMC />;
 }
