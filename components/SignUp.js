@@ -42,8 +42,7 @@ export default function SignUp() {
           onSubmit={(values, actions) => {
             onSubmitHandler(values, actions);
           }}
-          validationSchema={validationSchema}
-        >
+          validationSchema={validationSchema}>
           {({
             handleChange,
             values,
@@ -54,8 +53,7 @@ export default function SignUp() {
           }) => (
             <KeyboardAwareScrollView
               style={styles.content}
-              showsVerticalScrollIndicator={false}
-            >
+              showsVerticalScrollIndicator={false}>
               <View style={styles.formGroup}>
                 <Text style={styles.label}> First Name</Text>
                 <TextInput

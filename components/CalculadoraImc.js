@@ -1,13 +1,43 @@
-import { SafeAreaView, StatusBar, View, Text, Platform, StyleSheet } from "react-native";
+import { SafeAreaView, StatusBar, View, Text, Platform, StyleSheet, TouchableOpacity } from "react-native";
 import { CENTER, TEXT, BUTTON, BUTTON_TEXT } from "./style";
 import Constants from "expo-constants";
 import {useState} from 'react'
 import GenderSelection from "./GenderSelection";
 import HeightSelection from "./HeightSelection";
+import WeightAndAgeSelection from './WeightAndAgeSelection'
+import ResultModal from './ResultModal'
 
 export default function CalculadoraImc() {
     const [gender, setGender] = useState("male");
     const [height, setHeight] = useState(150);
+    const [weight, setWeight] = useState(50)
+    const [age, setAge] = useState(20)
+    const [modalVisible, setModalVisible] = useState(false);
+ const [bmiPoint, setBmiPoint] = useState(0);
+  const [bmiStatus, setBmiStatus] = useState("NORMAL");
+  const [bmiInterpretation, setBmiInterpretation] = useState("");
+  
+    function calculate() {
+      const point = weight / (height / 100) ** 2;
+
+      if (point < 18.5) {
+        setBmiStatus("UNDERWEIGHT");
+        setBmiInterpretation(
+          "You have a higher than normal body weight.\nTry to exercise more."
+        );
+      } else if (point < 25) {
+        setBmiStatus("NORMAL");
+        setBmiInterpretation("You have a normal body weight.\nGood job!");
+      } else {
+        setBmiStatus("OVERWEIGHT");
+        setBmiInterpretation(
+          "You have a higher than normal body weight.\nTry to exercise more."
+        );
+      }
+
+    setBmiPoint(point.toFixed(2));
+    setModalVisible(true);
+  }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -17,8 +47,18 @@ export default function CalculadoraImc() {
                     <Text style={styles.headerText}>BMI CALCULATOR</Text>
                 </View>
                 <GenderSelection style={styles.gender} gender={gender} setGender={setGender}/>
-                <HeightSelection style={styles.height} height={height} setHeight={setHeight}
-        />
+                <HeightSelection style={styles.height} height={height} setHeight={setHeight}/>
+                <WeightAndAgeSelection style={styles.weightAndAge} weight={weight} setWeight={setWeight} age={age} setAge={setAge}/>
+                 <TouchableOpacity style={styles.calculateButton} onPress={calculate}>
+                  <Text style={styles.calculateButtonText}>CALCULATE</Text>
+                </TouchableOpacity>
+                <ResultModal
+                  modalVisible={modalVisible}
+                  setModalVisible={setModalVisible}
+                  bmiPoint={bmiPoint}
+                  bmiStatus={bmiStatus}
+                  bmiInterpretation={bmiInterpretation}
+                />
              </View>
         </SafeAreaView>
     )
